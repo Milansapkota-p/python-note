@@ -3,28 +3,67 @@ class student_info:
     def __init__(self):
         pass
     def update_student(self):
-        std_info={}
+        #learn about Exception handling previously program give error when there is 
+        # file didn’t exist
+        try:
+            with open("student_info","r")as f:
+                std_info=json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            std_info = {}
         std_id=input("Enter student id: ")
+        for key in std_info.keys():
+            if key==std_id:
+                print(f"Id {key} is already exist!! please make different one")
+                return
         std_name=input("Enter student name: ")
         std_age=input("Enter student age: ")
         std_class=input("Enter student class: ")
         std_rollNum=input("Enter student roll number: ")
         std_gender=input("Enter student gender: ")
-        std_info.update({std_id:[std_name,std_age,std_rollNum,std_gender,std_class]})
-        with open("student_info","a") as f:
-            json.dump(std_info,f)
+        std_info[std_id]=["name:"+std_name,"age:"+std_age,"Roll no:"+std_rollNum,
+                          "Gender:"+std_gender,"class:"+std_class]
+        with open("student_info","w") as f:
+            json.dump(std_info,f,indent=2)
+        print("Data added successfully")
     def show_Details(self):
+        try:
+            with open("student_info","r")as f:
+                data=json.load(f)
+                for key in data.keys():
+                    print(f"Id={key}:{data.get(key)}")
+                # print(data)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("File is not created ")
+    def search_Std(self):
         id=input("Enter your id:")
         with open("student_info","r")as f:
             data=json.load(f)
-            for idx in range(len(data)):
-                print(type(idx))
-                if((list(data.keys())[idx])==id):
-                    print(f"{data.get(id)}")
-    def search_Std(self):
-        pass
+            for i in range(len(data)):
+                if(list(data.keys())[i]==id):
+                    print(list(data.values())[i])
     def delete_std(self):
-        pass
+        print("1.Delete all student record")
+        print("2.Delete specific student record")
+        choice=input("Enter your choice:")
+        if(choice=="1"):
+            with open("student_info","w")as f:
+                return
+        elif(choice=="2"):
+            id=input("Enter student id:")
+            with open("student_info","r+")as f:
+                data=json.load(f)
+                for key in data.keys():
+                    if key==id:
+                        data.pop(id,None)
+                        f.seek(0)    # move the file pointer to the beginning
+                        f.truncate() # cuts from current pointer position
+                        json.dump(data,f,indent=2)
+                        print(f"id={id} has been delete successfully")
+                    else:
+                        print(f"Id={id} didn't exist!!")
+                        return
+        else:
+            print("Invalid choice!")
 
 s1= student_info()
 is_running=True
@@ -45,7 +84,4 @@ while is_running:
         case "4":
             s1.delete_std()
         case "5":
-            is_running=False        
-
-
-       
+            is_running=False
