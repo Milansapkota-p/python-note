@@ -1,0 +1,30 @@
+{
+  "01": {
+    "name": "milan sapkota",
+    "age": "20",
+    "Roll no": "22",
+    "Gender": "male",
+    "class": "bsc"
+  },
+  "02": {
+    "name": "melina",
+    "age": "19",
+    "Roll no": "30",
+    "Gender": "female",
+    "class": "bbs"
+  },
+  "03": {
+    "name": "chetan",
+    "age": "22",
+    "Roll no": "8",
+    "Gender": "male",
+    "class": "bsc"
+  },
+  "04": {
+    "name": "bikash",
+    "age": "20",
+    "Roll no": "09",
+    "Gender": "male",
+    "class": "bsc"
+  }
+}
