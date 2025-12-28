@@ -1,0 +1,23 @@
+{
+  "01": {
+    "name": "chetan",
+    "age": "20",
+    "Roll no": "09",
+    "Gender": "male",
+    "class": "bsc csit"
+  },
+  "02": {
+    "name": "bikash",
+    "age": "20",
+    "Roll no": "09",
+    "Gender": "male",
+    "class": "bsc csit"
+  },
+  "03": {
+    "name": "milan",
+    "age": "20",
+    "Roll no": "22",
+    "Gender": "male",
+    "class": "bsc csit"
+  }
+}
