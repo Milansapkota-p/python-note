@@ -1,8 +1,30 @@
+import json
 class library_info:
     def __init__(self):
         pass
     def add_book(self):
-        pass
+        try:
+            with open("library_data","r") as f:
+                lab_info=json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            lab_info={}
+        book_id=int(input("Enter book id:"))
+        for id in lab_info.keys():
+            if(int(id)==book_id):
+                print(f"{book_id} id is already exsit please make new one!!")
+                return
+        book_name=input("Enter title of book:")
+        author=input(f"Enter author name of {book_name} book:")
+        catogory=input(f"Enter catogory of {book_name} book:")
+        t_copies=int(input(f"Enter total copies of {book_name}:"))
+        avil_copies=int(input(f"Enter total avilable copies:"))
+        lab_info[book_id]={"book name":book_name,"author":author,"catogory":catogory,
+                           "total copies":t_copies,"avilable copies":avil_copies}
+        with open("library_data","w") as f:
+            json.dump(lab_info,f,indent=2)
+            print(lab_info)
+
+
     def view_book(self):
         pass
     def search_book(self):
