@@ -32,7 +32,7 @@ class library_info:
                            "total copies":t_copies,"avilable copies":avil_copies}
         with open("library_data","w") as f:
             json.dump(lab_info,f,indent=2)
-            print("Data is successfully added!!")
+            print("Data is successfully added!!") 
     def view_book(self):
         try:
             with open("library_data","r") as f:
@@ -54,7 +54,35 @@ class library_info:
     def update_book(self):
         pass
     def delete_book(self):
-        pass
+        print("1.Delete all labrary record")
+        print("2.Delete specific labrary record")
+        choice=input("Enter your choice:")
+        if(choice=="1"):
+            with open("library_data","w")as f:
+                f.write("{}")
+                print("All library record was deleted!!")
+        elif(choice=="2"):
+                with open("library_data","r+")as f:
+                    data=json.load(f)
+                    if str(data)=="{}":
+                        print("file is empty!!")
+                    else:
+                        try:
+                            id=self.get_int("Enter book id:")
+                        except ValueError:print("Please enter integer value")
+                        for key in list(data.keys()):
+                            if int(key)==id:
+                                data.pop(id,None)
+                                f.seek(0)
+                                f.truncate() 
+                                json.dump(data,f,indent=2)
+                                print(f"id={id} has been delete successfully")
+                                return
+                        else:
+                            print(f"Id={id} didn't exist!!")
+                                
+        else:
+            print("Invalid choice!")
     def is_bool_avilable(self):
         pass
 
