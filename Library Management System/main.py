@@ -1,7 +1,12 @@
 import json
 class library_info:
-    def __init__(self):
-        pass
+    def get_read_file(self):
+        try:
+            with open("library_data","r") as f:
+                lab_info=json.load(f)
+                return lab_info
+        except (FileNotFoundError, json.JSONDecodeError):
+             print("file is not created!!")
     def get_int(self,message):
         while True:
             try:
@@ -34,25 +39,19 @@ class library_info:
             json.dump(lab_info,f,indent=2)
             print("Data is successfully added!!") 
     def view_book(self):
-        try:
-            with open("library_data","r") as f:
-                lab_info=json.load(f)
+                lab_info=self.get_read_file()
+                if str(lab_info)=="{}":
+                    print("file is empty!!")
                 for key in lab_info.keys():
                     print(f"Book Id={key}:{lab_info.get(key)}")
-        except (FileNotFoundError, json.JSONDecodeError):
-            print("file is not created!!")
-    def search_book(self):
-        try:
-            with open("library_data","r") as f:
-                lab_info=json.load(f)
+    def search_book(self):             
+                lab_info=self.get_read_file()
+                if str(lab_info)=="{}":
+                    print("file is empty!!")
                 book_id=self.get_int("Enter book id:")
                 for key in lab_info.keys():
                     if(book_id==int(key)):
                         print(f"Book id={key}:{lab_info.get(key)}")
-        except (FileNotFoundError, json.JSONDecodeError):
-            print("file is not created!!")
-    def update_book(self):
-        pass
     def delete_book(self):
         print("1.Delete all labrary record")
         print("2.Delete specific labrary record")
@@ -67,9 +66,7 @@ class library_info:
                     if str(data)=="{}":
                         print("file is empty!!")
                     else:
-                        try:
-                            id=self.get_int("Enter book id:")
-                        except ValueError:print("Please enter integer value")
+                        id=self.get_int("Enter book id:")
                         for key in list(data.keys()):
                             if int(key)==id:
                                 data.pop(id,None)
@@ -79,12 +76,17 @@ class library_info:
                                 print(f"id={id} has been delete successfully")
                                 return
                         else:
-                            print(f"Id={id} didn't exist!!")
-                                
+                            print(f"Id={id} didn't exist!!")                           
         else:
             print("Invalid choice!")
-    def is_bool_avilable(self):
-        pass
+    def is_book_avilable(self):
+        id=self.get_int("Enter book Id :")
+        lab_info=self.get_read_file()
+        for key in lab_info.keys():
+            if(id==int(key)):
+                 print("Book is avilable!!")
+
+
 
 l1=library_info()
 is_running=True
@@ -92,18 +94,15 @@ while is_running:
     print("1.Add book")
     print("2.View book")
     print("3.Search book")
-    print("4.Update book")
-    print("5.Delete book")
-    print("6.Is book avilable")
-    print("7.Quit")
+    print("4.Delete book")
+    print("5.Is book avilable")
+    print("6.Quit")
     choice=int(input("Enter your choice:"))
     match choice:
         case 1:l1.add_book()
         case 2:l1.view_book()
         case 3:l1.search_book()
-        case 4:l1.update_book()
-        case 5:l1.delete_book()
-        case 6:l1.is_bool_avilable()
-        case 7:
+        case 4:l1.delete_book()
+        case 5:l1.is_book_avilable()
+        case 6:
             is_running=False
-
