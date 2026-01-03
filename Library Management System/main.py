@@ -87,22 +87,22 @@ class library_info:
                  print("Book is avilable!!")
 
 
-
-l1=library_info()
-is_running=True
-while is_running:
-    print("1.Add book")
-    print("2.View book")
-    print("3.Search book")
-    print("4.Delete book")
-    print("5.Is book avilable")
-    print("6.Quit")
-    choice=int(input("Enter your choice:"))
-    match choice:
-        case 1:l1.add_book()
-        case 2:l1.view_book()
-        case 3:l1.search_book()
-        case 4:l1.delete_book()
-        case 5:l1.is_book_avilable()
-        case 6:
-            is_running=False
+if __name__=="__main__":
+    l1=library_info()
+    is_running=True
+    while is_running:
+        print("1.Add book")
+        print("2.View book")
+        print("3.Search book")
+        print("4.Delete book")
+        print("5.Is book avilable")
+        print("6.Quit")
+        choice=int(input("Enter your choice:"))
+        match choice:
+            case 1:l1.add_book()
+            case 2:l1.view_book()
+            case 3:l1.search_book()
+            case 4:l1.delete_book()
+            case 5:l1.is_book_avilable()
+            case 6:
+                is_running=False

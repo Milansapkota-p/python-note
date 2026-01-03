@@ -75,19 +75,20 @@ class member_info:
                                 
         else:
             print("Invalid choice!")
-l1=member_info()
-is_running=True
-while is_running:
-    print("1.Add member")
-    print("2.View member")
-    print("3.Search member")
-    print("4.Delete member")
-    print("5.Quit")
-    choice=int(input("Enter your choice:"))
-    match choice:
-        case 1:l1.add_member()
-        case 2:l1.view_member()
-        case 3:l1.search_member()
-        case 4:l1.delete_member()
-        case 5:
-            is_running=False
+if __name__=="__main":
+    l1=member_info()
+    is_running=True
+    while is_running:
+        print("1.Add member")
+        print("2.View member")
+        print("3.Search member")
+        print("4.Delete member")
+        print("5.Quit")
+        choice=int(input("Enter your choice:"))
+        match choice:
+            case 1:l1.add_member()
+            case 2:l1.view_member()
+            case 3:l1.search_member()
+            case 4:l1.delete_member()
+            case 5:
+                is_running=False
