@@ -1,3 +1,4 @@
+import json
 from memberManage import member_info as m
 from main import library_info
 class function(library_info,m):
@@ -10,6 +11,13 @@ class function(library_info,m):
         book_id=self.get_int("Enter book id:")
         for key in lab_info.keys():
             if(book_id==int(key)):
-                print(f"{lab_info[str(book_id)]["book name"]} book is issue to {m_info["1"]["name"]}")
+                if(lab_info[str(book_id)] ["total copies"])>0:
+                    lab_info[str(book_id)] ["total copies"]-=1
+                    with open("library_data","w") as f:
+                        json.dump(lab_info,f,indent=2)
+                        print(f"{lab_info[str(book_id)]["book name"]} book is issue to {m_info[str(m_id)]["name"]}")
+                else:
+                    print("all book is already issued")
+
 f1= function()
 f1.issue_book()
