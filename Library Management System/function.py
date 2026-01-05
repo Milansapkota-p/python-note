@@ -10,14 +10,27 @@ class function(library_info,m):
         m_id=self.get_int("Enter your library id:")
         book_id=self.get_int("Enter book id:")
         for key in lab_info.keys():
+            id=False
             if(book_id==int(key)):
-                if(lab_info[str(book_id)] ["total copies"])>0:
-                    lab_info[str(book_id)] ["total copies"]-=1
+                id=True
+                if(lab_info[str(book_id)] ["avilable copies"])>0:
+                    lab_info[str(book_id)] ["avilable copies"]-=1
                     with open("library_data","w") as f:
                         json.dump(lab_info,f,indent=2)
+                    try:
+                        with open("issued_book","r") as f:
+                            issued=json.load(f)
+                    except (FileNotFoundError, json.JSONDecodeError):
+                        issued={}
+                    with open("issued_book","w") as f:
+                        issued[str(book_id)]=lab_info[str(book_id)]
+                        json.dump(issued,f,indent=2)
                         print(f"{lab_info[str(book_id)]["book name"]} book is issue to {m_info[str(m_id)]["name"]}")
+                        break
                 else:
-                    print("all book is already issued")
+                    print(f"{lab_info[str(book_id)]["book name"]} book is already issued")
+        if id==False:
+                print(f"{book_id} id book  not found!!")
 
 f1= function()
 f1.issue_book()
