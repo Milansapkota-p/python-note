@@ -31,6 +31,23 @@ class function(library_info,m):
                     print(f"{lab_info[str(book_id)]["book name"]} book is already issued")
         if id==False:
                 print(f"{book_id} id book  not found!!")
+    def return_book(self):
+        with open("issued_book","r+")as f:
+                    data=json.load(f)
+                    if not data:
+                        print("There is no issued book!!")
+                    else:
+                        id=self.get_int("Enter book id:")
+                        for key in list(data.keys()):
+                            if int(key)==id:
+                                data.pop(str(id))
+                                f.seek(0)
+                                f.truncate() 
+                                json.dump(data,f,indent=2)
+                                print(f"id={id} has been delete successfully")
+                                return
+                        else:
+                            print(f"Id={id} didn't exist!!")                           
 
 f1= function()
-f1.issue_book()
+f1.return_book()

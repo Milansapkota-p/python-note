@@ -63,13 +63,13 @@ class library_info:
         elif(choice=="2"):
                 with open("library_data","r+")as f:
                     data=json.load(f)
-                    if str(data)=="{}":
+                    if not data:
                         print("file is empty!!")
                     else:
                         id=self.get_int("Enter book id:")
                         for key in list(data.keys()):
                             if int(key)==id:
-                                data.pop(id,None)
+                                data.pop(str(id))
                                 f.seek(0)
                                 f.truncate() 
                                 json.dump(data,f,indent=2)

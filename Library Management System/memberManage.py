@@ -58,13 +58,13 @@ class member_info:
         elif(choice=="2"):
                 with open("member_data","r+")as f:
                     data=json.load(f)
-                    if str(data)=="{}":
+                    if not data:
                         print("file is empty!!")
                     else:
                         id=self.get_int("Enter member id:")
                         for key in list(data.keys()):
                             if int(key)==id:
-                                data.pop(id,None)
+                                data.pop(str(id))
                                 f.seek(0)
                                 f.truncate() 
                                 json.dump(data,f,indent=2)
@@ -75,7 +75,7 @@ class member_info:
                                 
         else:
             print("Invalid choice!")
-if __name__=="__main":
+if __name__=="__main__":
     l1=member_info()
     is_running=True
     while is_running:
