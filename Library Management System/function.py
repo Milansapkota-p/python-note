@@ -32,6 +32,7 @@ class function(library_info,m):
         if id==False:
                 print(f"{book_id} id book  not found!!")
     def return_book(self):
+        lab_info=self.get_read_file()
         with open("issued_book","r+")as f:
                     data=json.load(f)
                     if not data:
@@ -40,6 +41,11 @@ class function(library_info,m):
                         id=self.get_int("Enter book id:")
                         for key in list(data.keys()):
                             if int(key)==id:
+                                if(lab_info[str(id)] ["avilable copies"])>0:
+                                    lab_info[str(id)] ["avilable copies"]+=1
+                                    with open("library_data","w") as f:
+                                        json.dump(lab_info,f,indent=2)
+                            with open("issued_book","r+")as f:
                                 data.pop(str(id))
                                 f.seek(0)
                                 f.truncate() 
@@ -50,4 +56,12 @@ class function(library_info,m):
                             print(f"Id={id} didn't exist!!")                           
 
 f1= function()
-f1.return_book()
+is_running=True
+while is_running:
+        print("1.Issued book")
+        print("2.Return book")
+        choice=int(input("Enter your choice:"))
+        match choice:
+            case 1:f1.issue_book()
+            case 2:f1.return_book()
+            case 3:is_running=False
